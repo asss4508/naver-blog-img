@@ -1,5 +1,17 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY7-chunk4</title></head><body style="margin:0;padding:16px;background:#ffffff;">
-<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑥ 패키징에 필요한 소재와 장비</h2>
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk"><h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑥ 패키징에 필요한 소재와 장비</h2>
 
 <p style="font-size:16.5px;line-height:2;margin:0 0 24px;">패키징 공정에도 전용 장비와 소재가 필요합니다.</p>
 
@@ -74,5 +86,4 @@ DAY 10. 반도체 업황 읽는 법
 <div style="height:28px;"></div>
 
 <p style="font-size:14px;color:#999;line-height:1.9;margin:0;">이 글은 반도체 산업에 대한 이해를 돕기 위한 교육 목적의 콘텐츠이며, 특정 종목의 매수 또는 매도를 추천하지 않습니다.</p>
-
-</body></html>
+</div></body></html>

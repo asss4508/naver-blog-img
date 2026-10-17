@@ -1,5 +1,17 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY7-chunk1</title></head><body style="margin:0;padding:16px;background:#ffffff;">
-
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk">
 <p style="font-size:15px;color:#888;margin:0 0 8px;">반도체 산업 스터디 · 10개 챕터 DAY 7</p>
 
 <p style="font-size:16.5px;line-height:2;margin:0 0 24px;">DAY 1에서 반도체는 설계 → 제조(전공정) → 패키징·테스트(후공정)의 과정을 거쳐 완성된다고 배웠습니다.</p>
@@ -20,5 +32,4 @@
 
 <p style="font-size:16.5px;line-height:2;margin:0 0 24px;">과거에는 패키징 기술이 단순한 보호와 연결에 머물렀습니다. 하지만 칩의 성능이 높아지고 크기가 작아지면서, 패키징 기술 자체가 <strong>발열 해소, 신호 속도, 전력 효율</strong>에 직접적인 영향을 미치게 됐습니다. 이제 패키징은 단순한 후공정을 넘어 반도체 성능 경쟁의 새로운 전장으로 자리 잡았습니다.</p>
 
-
-</body></html>
+</div></body></html>

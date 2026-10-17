@@ -1,5 +1,17 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY7-chunk3</title></head><body style="margin:0;padding:16px;background:#ffffff;">
-<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">④ 불량을 걸러내는 과정, 테스트의 종류</h2>
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk"><h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">④ 불량을 걸러내는 과정, 테스트의 종류</h2>
 
 <img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-test-07.png" alt="웨이퍼 프로브 테스트 — 웨이퍼 상태에서 불량 칩을 선별하는 과정" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
 <p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">웨이퍼 프로브 테스트 — 웨이퍼 상태에서 불량 칩을 선별하는 과정</p>
@@ -31,5 +43,4 @@
 
 <p style="font-size:16.5px;line-height:2;margin:0 0 24px;">이처럼 테스트 공정은 핸들러, 프로브카드, 소켓 등 여러 부품 기업들의 기술이 맞물려 돌아가는 분야입니다.</p>
 
-
-</body></html>
+</div></body></html>
