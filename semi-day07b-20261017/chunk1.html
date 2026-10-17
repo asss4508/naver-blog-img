@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY7-chunk1</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk">
+<p style="font-size:15px;color:#888;margin:0 0 8px;">반도체 산업 스터디 · 10개 챕터 DAY 7</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">DAY 1에서 반도체는 설계 → 제조(전공정) → 패키징·테스트(후공정)의 과정을 거쳐 완성된다고 배웠습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">그런데 웨이퍼에서 칩을 잘라냈다고 바로 제품이 되는 것은 아닙니다. <strong style="color:#1a73e8;">잘라낸 칩은 외부와 전기적으로 연결되지도 않았고, 작은 충격이나 습기에도 쉽게 손상됩니다.</strong></p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">칩을 안전하게 감싸고 외부 회로와 연결하는 <strong>패키징</strong>, 그리고 제품이 정상 작동하는지 확인하는 <strong>테스트</strong>가 바로 오늘의 주제입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">예전에는 패키징과 테스트가 "칩을 만들고 나서 하는 부가 작업" 정도로 여겨졌습니다. 하지만 지금은 첨단 패키징 기술이 반도체의 성능 자체를 좌우하는 시대가 됐습니다. 오늘은 후공정의 모든 것을 하나씩 살펴보겠습니다.</p>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">① 패키징이란 무엇일까?</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">패키징(Packaging)은 반도체 칩을 <strong>외부 충격과 습기로부터 보호하고, 외부 회로와 전기적으로 연결되는 통로를 만드는 공정</strong>입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">웨이퍼에서 잘라낸 칩(다이)은 크기가 아주 작고 얇습니다. 이 상태로는 스마트폰이나 자동차에 장착할 수 없습니다. 패키징은 칩을 기판에 고정하고, 칩 내부의 미세한 회로와 외부 핀을 연결한 뒤, 검은색 수지(몰딩 컴파운드)로 단단하게 감싸 제품 형태로 만듭니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">쉽게 말해 패키징은 <strong>반도체 칩의 "집"</strong>이라고 할 수 있습니다. 집이 튼튼하고 출입로가 잘 정리되어 있어야 칩이 제 성능을 발휘할 수 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">과거에는 패키징 기술이 단순한 보호와 연결에 머물렀습니다. 하지만 칩의 성능이 높아지고 크기가 작아지면서, 패키징 기술 자체가 <strong>발열 해소, 신호 속도, 전력 효율</strong>에 직접적인 영향을 미치게 됐습니다. 이제 패키징은 단순한 후공정을 넘어 반도체 성능 경쟁의 새로운 전장으로 자리 잡았습니다.</p>
+
+</div></body></html>

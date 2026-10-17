@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY7-chunk3</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk"><h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">④ 불량을 걸러내는 과정, 테스트의 종류</h2>
+
+<img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-test-07.png" alt="웨이퍼 프로브 테스트 — 웨이퍼 상태에서 불량 칩을 선별하는 과정" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
+<p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">웨이퍼 프로브 테스트 — 웨이퍼 상태에서 불량 칩을 선별하는 과정</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">반도체 제조 과정에서는 수백 단계의 공정을 거치기 때문에 불량이 발생할 수밖에 없습니다. 테스트는 각 단계에서 불량품을 골라내고, 최종 제품의 품질을 보장하는 과정입니다.</p>
+
+<div style="background:#f0f6ff;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;">🔗 테스트의 세 단계</p>
+<p style="font-size:15.5px;line-height:2;margin:0;"><strong>웨이퍼 테스트(프로브 테스트)</strong> → <strong>패키지 테스트(파이널 테스트)</strong> → <strong>번인 테스트</strong><br />제조가 끝난 순서대로 불량을 선별하고 최종 검증을 거쳐 출하합니다.</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>웨이퍼 테스트(프로브 테스트)</strong>는 웨이퍼 상태, 즉 칩을 자르기 전에 불량 칩을 선별하는 과정입니다. 프로브카드의 미세한 탐침을 칩의 전극에 접촉시켜 전기적 특성을 측정합니다. 이때 불량으로 판정된 칩은 이후 패키징 공정에 투입하지 않아 비용을 절감할 수 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>패키지 테스트(파이널 테스트)</strong>는 패키징이 완료된 제품이 정상 작동하는지 최종 검증하는 과정입니다. 테스트 소켓에 패키지를 장착하고 실제 동작 조건에서 기능과 성능을 확인합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>번인 테스트</strong>는 고온 환경에서 장시간 동작시켜 초기에 고장 날 가능성이 있는 제품을 미리 제거하는 과정입니다. 사용 초기에 발생할 수 있는 불량을 사전에 걸러내 제품의 신뢰성을 높이는 역할을 합니다.</p>
+
+<div style="height:28px;"></div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑤ 테스트에 필요한 장비와 부품 기업</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">테스트 공정을 자동화하고 정확하게 수행하려면 다양한 장비와 부품이 필요합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>테스트 핸들러</strong>는 칩을 테스트 장비에 자동으로 공급하고 분류하는 장치입니다. 국내에서는 <strong>테크윙, 엑시콘, 유니테스트</strong> 등이 테스트 핸들러를 제조합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>프로브카드</strong>는 웨이퍼 테스트에 사용하는 탐침 카드입니다. 수천 개의 미세한 탐침이 웨이퍼 위 칩들의 전극에 동시에 접촉해 전기 신호를 측정합니다. 국내에서는 <strong>리노공업, 티에스이</strong> 등이 프로브카드를 공급합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>테스트 소켓</strong>은 패키지 테스트에서 패키지와 테스트 장비를 연결하는 접촉 부품입니다. 반복적인 접촉에도 안정적인 전기적 연결을 유지해야 합니다. <strong>리노공업</strong>은 테스트 핀과 소켓 분야의 대표 기업으로 알려져 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">이처럼 테스트 공정은 핸들러, 프로브카드, 소켓 등 여러 부품 기업들의 기술이 맞물려 돌아가는 분야입니다.</p>
+
+</div></body></html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY7-chunk4</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk"><h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑥ 패키징에 필요한 소재와 장비</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">패키징 공정에도 전용 장비와 소재가 필요합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>다이 본딩 장비</strong>는 웨이퍼에서 잘라낸 칩을 기판에 정확하게 부착하는 장비입니다. <strong>한미반도체, ASMPT</strong> 등이 다이 본딩 장비를 공급합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>와이어 본더</strong>는 금선으로 칩과 기판을 연결하는 장비로, <strong>ASMPT, K&amp;S</strong> 등이 제조합니다. 수십 마이크로미터의 정밀한 움직임으로 금선을 접합하는 고난도 장비입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>몰딩 장비</strong>는 칩을 보호하는 봉지재(몰딩 컴파운드)를 주입해 단단하게 감싸는 장비입니다. 봉지재의 온도, 압력, 유동 특성을 정밀하게 제어해야 합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">패키징 소재로는 칩과 기판을 연결하는 <strong>본딩와이어와 솔더볼</strong>이 있습니다. 국내에서는 <strong>엠케이전자</strong>가 본딩와이어 및 솔더볼 관련 사업을 영위하고 있습니다.</p>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑦ 한눈에 보는 오늘의 핵심 정리</h2>
+
+<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.8;margin:24px 0;">
+<thead><tr style="background:#1f2d4d;color:#fff;">
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">분야</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">주요 기업</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">역할</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">OSAT</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">ASE, 앰코테크놀로지, 하나마이크론</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">패키징·테스트 외주</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">테스트 핸들러</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">테크윙, 엑시콘, 유니테스트</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">칩 자동 공급·분류</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">프로브카드</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">리노공업, 티에스이</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">웨이퍼 테스트 탐침</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">다이 본딩</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">한미반도체, ASMPT</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">칩 부착 장비</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">와이어 본더</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">ASMPT, K&amp;S</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">금선 연결 장비</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">본딩와이어·솔더볼</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">엠케이전자</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">패키징 연결 소재</td></tr>
+</tbody>
+</table>
+<p style="font-size:14px;color:#999;margin:0 0 24px;">※ 위 표는 각 기업의 대표적인 사업 영역을 기준으로 분류한 것으로, 실제로는 복수 분야에 참여하는 기업도 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">오늘 꼭 기억해야 할 내용은 세 가지입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>첫째,</strong> 패키징은 칩을 보호하고 외부와 연결하는 공정으로, 이제는 반도체 성능 자체를 좌우하는 기술 영역이 됐습니다.<br /><strong>둘째,</strong> 테스트는 웨이퍼 테스트 → 패키지 테스트 → 번인 테스트의 순서로 불량을 선별하며, 제품의 신뢰성을 결정합니다.<br /><strong>셋째,</strong> OSAT, 테스트 핸들러, 프로브카드, 다이 본딩 등 후공정에도 각자의 기술로 경쟁하는 기업들이 존재합니다.</p>
+
+<div style="height:28px;"></div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">마무리: 후공정은 반도체의 마지막 관문이다</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">패키징과 테스트는 반도체 제조의 마지막 관문으로, 제품의 품질과 신뢰성을 결정합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">앞으로 반도체 관련 뉴스를 볼 때 한 가지를 더 눈여겨보세요.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>"이 기업은 후공정의 어느 단계에서 어떤 기술로 경쟁하고 있을까?"</strong></p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">그리고 한 걸음 더 나아가, AI 반도체 시대에 패키징 기술이 왜 성능의 핵심 변수로 떠올랐는지 생각해 보세요. 그 이야기는 바로 다음 챕터에서 이어집니다.</p>
+
+<div style="height:28px;"></div>
+
+<div style="background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;">📚 시리즈 챕터 (반도체 산업 스터디)</p>
+<p style="font-size:15px;line-height:2;margin:0;">
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;text-decoration:none;">DAY 1. 반도체는 누가 만들고, 누가 돈을 벌까?</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;text-decoration:none;">DAY 2. 삼성전자와 엔비디아는 무엇이 다를까?</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;text-decoration:none;">DAY 3. 팹리스, 파운드리, IDM</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;text-decoration:none;">DAY 4. 8대 공정 완전 정복</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;text-decoration:none;">DAY 5. 반도체 장비의 세계</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;text-decoration:none;">DAY 6. 소재 산업의 비밀</a><br />
+<strong>DAY 7. 패키징과 테스트 ← 오늘</strong><br />
+DAY 8. HBM과 첨단 패키징<br />
+DAY 9. AI 반도체 전쟁<br />
+DAY 10. 반도체 업황 읽는 법
+</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">다음 편에서는 AI 시대의 핵심 부품으로 떠오른 <strong style="color:#1a73e8;">HBM(고대역폭 메모리)</strong>과 칩을 수직으로 쌓는 <strong>첨단 패키징 기술</strong>을 알아보겠습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">왜 엔비디아의 AI 칩에는 HBM이 반드시 필요할까요? 그리고 2.5D, 3D 패키징은 반도체 성능을 어떻게 끌어올릴까요?</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>DAY 8. HBM과 첨단 패키징</strong> — 다음 시간에 함께 알아보겠습니다!</p>
+
+<div style="height:28px;"></div>
+<div style="height:28px;"></div>
+
+<p style="font-size:14px;color:#999;line-height:1.9;margin:0;">이 글은 반도체 산업에 대한 이해를 돕기 위한 교육 목적의 콘텐츠이며, 특정 종목의 매수 또는 매도를 추천하지 않습니다.</p>
+</div></body></html>

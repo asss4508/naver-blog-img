@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>DAY7 meta</title></head>
+<body style="font-family:sans-serif;padding:24px;line-height:2;">
+<script>
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); document.getElementById('tmsg').textContent='복사됨 OK '+t; }
+  catch(e){ document.getElementById('tmsg').textContent='실패: '+e; }
+}
+</script>
+<p style="font-size:13px;color:#888;">[제목]</p>
+<p style="font-size:20px;font-weight:bold;border:1px solid #ccc;padding:12px;">반도체 산업 스터디 ⑦ 반도체는 만들었다고 끝이 아니다, 패키징과 테스트의 모든 것</p>
+<button onclick="copyText('반도체 산업 스터디 ⑦ 반도체는 만들었다고 끝이 아니다, 패키징과 테스트의 모든 것')" style="font-size:17px;padding:10px 24px;cursor:pointer;">📋 제목 복사하기</button>
+<span id="tmsg" style="font-size:14px;margin-left:8px;color:green;"></span>
+<p style="font-size:13px;color:#888;margin-top:32px;">[태그 — 각 버튼으로 하나씩 복사, 총 9개]</p>
+<div style="margin:6px 0;"><button onclick="copyText('반도체산업')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">반도체산업</span> <span class="m0" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('반도체패키징')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">반도체패키징</span> <span class="m1" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('반도체테스트')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">반도체테스트</span> <span class="m2" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('OSAT')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">OSAT</span> <span class="m3" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('후공정')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">후공정</span> <span class="m4" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('하나마이크론')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">하나마이크론</span> <span class="m5" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('리노공업')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">리노공업</span> <span class="m6" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('테크윙')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">테크윙</span> <span class="m7" style="font-size:13px;color:#888;"></span></div><div style="margin:6px 0;"><button onclick="copyText('한미반도체')" style="font-size:15px;padding:8px 16px;cursor:pointer;">📋 복사</button> <span style="font-size:16px;">한미반도체</span> <span class="m8" style="font-size:13px;color:#888;"></span></div>
+</body></html>

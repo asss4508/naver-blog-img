@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY7-chunk2</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk"><h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">② 패키징의 종류와 기술</h2>
+
+<img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-packaging-07.png" alt="반도체 패키징 공정 — 칩을 기판에 실장하는 모습" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
+<p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">반도체 패키징 공정 — 칩을 기판에 실장하는 모습</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">패키징 기술은 시대에 따라 발전해 왔습니다. 대표적인 방식을 순서대로 정리해 보겠습니다.</p>
+
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;margin:24px 0;">
+<div style="flex:1;min-width:130px;background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:14px 10px;text-align:center;">
+<p style="font-size:15px;font-weight:800;margin:0 0 6px;color:#333;">와이어 본딩</p>
+<p style="font-size:13px;color:#555;line-height:1.8;margin:0;">금선으로<br />칩과 기판 연결<br />전통 방식</p>
+</div>
+<div style="flex:1;min-width:130px;background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:14px 10px;text-align:center;">
+<p style="font-size:15px;font-weight:800;margin:0 0 6px;color:#333;">플립칩</p>
+<p style="font-size:13px;color:#555;line-height:1.8;margin:0;">칩을 뒤집어<br />범프로 직접 연결<br />고속 신호에 유리</p>
+</div>
+<div style="flex:1;min-width:130px;background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:14px 10px;text-align:center;">
+<p style="font-size:15px;font-weight:800;margin:0 0 6px;color:#333;">팬아웃</p>
+<p style="font-size:13px;color:#555;line-height:1.8;margin:0;">칩 면적보다 넓게<br />재배선층 형성<br />소형화·박형화</p>
+</div>
+<div style="flex:1;min-width:130px;background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:14px 10px;text-align:center;">
+<p style="font-size:15px;font-weight:800;margin:0 0 6px;color:#333;">2.5D / 3D</p>
+<p style="font-size:13px;color:#555;line-height:1.8;margin:0;">인터포저 위에 배치<br />또는 수직 적층<br />첨단 패키징</p>
+</div>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>와이어 본딩</strong>은 가장 오래된 방식입니다. 얇은 금선으로 칩의 전극과 기판을 하나하나 연결합니다. 비용이 저렴하고 기술이 안정적이라 지금도 메모리나 범용 칩에 널리 쓰입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>플립칩</strong>은 칩을 뒤집어 솔더 범프(작은 납땜 돌기)로 기판에 직접 연결하는 방식입니다. 전선 길이가 짧아 고속 신호 전달에 유리하고 발열 관리에도 강점이 있습니다. CPU, GPU 같은 고성능 칩에 주로 적용됩니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>팬아웃 패키징</strong>은 칩 본체 면적을 벗어나 더 넓은 영역에 재배선층(RDL)을 형성하는 기술입니다. 연결 핀 수를 늘리면서도 패키지 크기를 줄일 수 있어 스마트폰용 애플리케이션 프로세서에 활용됩니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>2.5D 패키징</strong>은 인터포저라는 중간 기판 위에 여러 개의 칩을 나란히 배치하는 방식이고, <strong>3D 패키징</strong>은 칩을 수직으로 쌓아 올리는 방식입니다. 이 두 기술은 바로 다음 챕터인 DAY 8(HBM과 첨단 패키징)에서 본격적으로 다룰 예정입니다.</p>
+
+<div style="height:28px;"></div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">③ 패키징과 테스트를 맡아주는 기업, OSAT</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">패키징과 테스트를 전문적으로 대행하는 기업을 <strong>OSAT(Outsourced Semiconductor Assembly and Test)</strong>라고 부릅니다. 파운드리가 반도체 제조를 외주로 받는 것처럼, OSAT는 후공정을 외주로 받는 사업 모델입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">글로벌 OSAT 시장의 대표적인 기업은 다음과 같습니다.</p>
+
+<div style="margin:20px 0;text-align:left;">
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;color:#1a73e8;border-radius:14px;padding:4px 14px;font-size:14px;font-weight:700;margin:3px 4px;">ASE (대만)</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;color:#1a73e8;border-radius:14px;padding:4px 14px;font-size:14px;font-weight:700;margin:3px 4px;">앰코테크놀로지 (미국)</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;color:#1a73e8;border-radius:14px;padding:4px 14px;font-size:14px;font-weight:700;margin:3px 4px;">JCET (중국)</span>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">국내에도 패키징과 테스트 관련 사업을 영위하는 기업들이 있습니다. <strong>하나마이크론, SFA반도체, 네패스, LB세미콘</strong> 등이 패키징 관련 사업을 하고 있으며, <strong>두산테스나, 네패스아크, 에이팩트</strong>는 반도체 테스트 분야와 관련이 깊습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">OSAT 기업의 경쟁력은 <strong>패키징 수율, 첨단 패키징 기술 확보, 고객사(팹리스·IDM)와의 협력 관계</strong>라고 할 수 있습니다. 첨단 패키징 수요가 커지면서 OSAT의 역할도 단순 외주 가공을 넘어 기술 경쟁의 영역으로 확장되고 있습니다.</p>
+
+</div></body></html>
