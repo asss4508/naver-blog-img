@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY8-chunk2</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk">
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">③ TC 본딩과 MR-MUF, 칩을 접합하는 기술</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">TC 본딩(Thermal Compression Bonding)은 <strong>열과 압력을 이용해 칩을 접합하는 기술</strong>입니다. 칩 사이의 미세 범프를 녹여 전기적으로 연결합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>한미반도체</strong>는 TC 본더 분야에서 글로벌 대표 기업입니다. <strong>BESI</strong>(BE Semiconductor Industries)와 <strong>ASMPT</strong>도 다이 본딩 장비를 공급합니다.</p>
+
+<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.8;margin:24px 0;">
+<thead><tr style="background:#1f2d4d;color:#fff;">
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">접합 방식</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">방식 설명</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">활용 기업</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">NCF</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">비전도성 필름(Non-Conductive Film) 사용</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">—</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">TC-NCF</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">열압착과 NCF를 결합한 방식</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">삼성전자</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">MR-MUF</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">적층 칩을 일괄 리플로우하고 몰딩으로 채우는 방식</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">SK하이닉스</td></tr>
+</tbody>
+</table>
+
+<div style="background:#1f2d4d;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#fff;">🔩 TC 본딩 공정 흐름</p>
+<p style="font-size:15.5px;line-height:2.1;margin:0;color:#e8ecf4;">
+<strong style="color:#ffd166;">열 + 압력</strong> → 미세 범프 용융 → 칩 접합 → 전기적 연결 완성<br />
+<span style="font-size:14px;color:#aeb9cf;">칩을 많이 쌓을수록 접합 정밀도와 열 관리가 중요해집니다.</span>
+</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">관련 기업으로는 <strong>한미반도체, BESI, ASMPT</strong>(본딩 장비), <strong>인텍플러스</strong>(검사 장비) 등이 있습니다.</p>
+
+<p style="margin:8px 0 24px;">
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">한미반도체</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">BESI</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">ASMPT</span>
+<span style="display:inline-block;background:#fff;border:2px solid #1f2d4d;color:#1f2d4d;font-size:13px;font-weight:700;padding:5px 14px;border-radius:999px;margin:4px;">SK하이닉스</span>
+<span style="display:inline-block;background:#fff;border:2px solid #1f2d4d;color:#1f2d4d;font-size:13px;font-weight:700;padding:5px 14px;border-radius:999px;margin:4px;">삼성전자</span>
+</p>
+
+<div style="height:28px;"></div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">④ 하이브리드 본딩, 반도체를 더 촘촘하게 연결하는 기술</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">TSV가 반도체 칩을 수직으로 연결하는 통로라면, TC 본딩은 열과 압력을 이용해 칩을 접합하는 기술입니다. 그런데 HBM의 적층 수가 늘어나고 반도체의 연결부가 미세해질수록 새로운 문제가 발생합니다. 칩을 많이 쌓을수록 전체 높이가 증가하고, 연결해야 하는 전극의 간격도 점점 좁아지기 때문입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">이러한 문제를 해결하기 위한 차세대 기술 중 하나가 <strong style="color:#1a73e8;">하이브리드 본딩(Hybrid Bonding)</strong>입니다. 하이브리드 본딩은 금속과 절연막을 함께 직접 접합하는 기술입니다. 대표적으로 구리(Cu) 전극끼리 직접 연결하면서 주변 절연막도 접합하는 방식을 활용합니다.</p>
+
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;margin:24px 0;">
+<div style="flex:1;min-width:200px;background:#f5f7fa;border:2px solid #888;border-radius:10px;padding:16px;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#333;">🔗 미세 범프 기반 TC 본딩</p>
+<p style="font-size:14px;line-height:1.9;color:#555;margin:0;">미세한 솔더 범프를 이용해 칩 사이를 연결<br /><strong>→ 간격이 넓을 때 유리</strong></p>
+</div>
+<div style="flex:1;min-width:200px;background:#f0f6ff;border:2px solid #1a73e8;border-radius:10px;padding:16px;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#1a73e8;">⚡ 하이브리드 본딩</p>
+<p style="font-size:14px;line-height:1.9;color:#555;margin:0;">솔더 범프 없이 구리 전극을 직접 연결<br /><strong>→ 좁은 간격에 많은 연결부 구현 유리</strong></p>
+</div>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">물론 기술적 난도는 훨씬 높아집니다. 칩 표면이 매우 평평해야 하고, 구리 전극의 높이와 위치도 정밀하게 일치해야 합니다. 따라서 하이브리드 본딩에는 정밀 본딩장비뿐 아니라 <strong>CMP, 세정, 표면 활성화, 계측 및 검사 기술</strong>이 함께 필요합니다.</p>
+
+<div style="background:#f0f6ff;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;">🧪 하이브리드 본딩 공정 순서</p>
+<p style="font-size:15.5px;line-height:2;margin:0;"><strong>CMP 평탄화</strong> → <strong>세정</strong> → <strong>표면 활성화</strong> → <strong>정렬</strong> → <strong>직접 접합</strong> → <strong>열처리</strong></p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">글로벌 대표 기업으로는 네덜란드의 <strong>BESI</strong>와 미국의 <strong>어플라이드머티어리얼즈</strong>가 있습니다. BESI는 고정밀 다이 본딩과 하이브리드 본딩장비를 공급하며, 어플라이드머티어리얼즈는 접합 전 표면 처리와 CMP 등 관련 공정 기술을 보유하고 있습니다. 일본의 <strong>도쿄일렉트론</strong>과 오스트리아의 <strong>EV Group</strong>(비상장) 역시 웨이퍼 접합 및 관련 기술 생태계에 참여하고 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">국내 상장사 중에서는 <strong>한미반도체</strong>가 TC 본딩 장비 분야의 대표 기업입니다. 다만 TC 본더를 공급한다는 사실이 하이브리드 본더를 양산 공급한다는 의미는 아닙니다. 또한 <strong>파크시스템스</strong>는 초정밀 표면 계측, <strong>케이씨텍</strong>은 CMP, <strong>인텍플러스</strong>는 반도체 검사 기술을 보유하고 있어 관련 공정 생태계에서 살펴볼 수 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">하이브리드 본딩은 이미 일부 이미지센서와 3D 반도체 제조에 활용되고 있으며, 차세대 HBM의 적층 기술로도 연구 및 개발이 진행되고 있습니다.</p>
+
+<p style="margin:8px 0 24px;">
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">BESI</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">어플라이드머티어리얼즈</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">도쿄일렉트론</span>
+<span style="display:inline-block;background:#fff;border:2px solid #1f2d4d;color:#1f2d4d;font-size:13px;font-weight:700;padding:5px 14px;border-radius:999px;margin:4px;">한미반도체</span>
+<span style="display:inline-block;background:#fff;border:2px solid #1f2d4d;color:#1f2d4d;font-size:13px;font-weight:700;padding:5px 14px;border-radius:999px;margin:4px;">파크시스템스</span>
+<span style="display:inline-block;background:#fff;border:2px solid #1f2d4d;color:#1f2d4d;font-size:13px;font-weight:700;padding:5px 14px;border-radius:999px;margin:4px;">케이씨텍</span>
+</p>
+
+<div style="height:28px;"></div>
+</div></body></html>

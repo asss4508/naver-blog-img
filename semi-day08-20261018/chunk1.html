@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY8-chunk1</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk">
+<div style="max-width:760px;margin:0 auto;font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;color:#333;">
+
+<p style="font-size:15px;color:#888;margin:0 0 8px;">반도체 산업 스터디 · 10개 챕터 DAY 8</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">반도체는 작을수록 좋다는 이야기를 많이 들어보셨을 겁니다. 실제로 반도체 산업은 오랫동안 트랜지스터를 더욱 작게 만들고, 하나의 칩에 더 많은 회로를 집적하는 방향으로 발전해 왔습니다. 그런데 AI 시대에 들어서면서 새로운 경쟁이 시작됐습니다. 바로 반도체를 얼마나 잘 <strong style="color:#1a73e8;">쌓고 연결하느냐</strong>입니다. 대표적인 기술이 HBM(High Bandwidth Memory), 즉 고대역폭 메모리입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">엔비디아가 설계하는 AI GPU는 엄청난 양의 데이터를 빠르게 처리해야 합니다. 하지만 GPU의 계산 능력이 아무리 뛰어나더라도 메모리에서 데이터를 충분히 공급하지 못하면 성능을 제대로 활용하기 어렵습니다. 이러한 문제를 해결하기 위해 여러 개의 DRAM을 수직으로 쌓고, GPU와 가까운 위치에서 대량의 데이터를 주고받도록 만든 것이 HBM입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">여기서 흥미로운 사실이 있습니다. HBM 시장에서는 삼성전자, SK하이닉스, 마이크론 같은 메모리 제조사뿐 아니라 한미반도체, TSMC, BESI 등 서로 다른 분야의 기업들도 중요한 역할을 담당합니다. 왜 메모리반도체를 만드는 데 패키징 장비와 파운드리 기술까지 필요할까요? 오늘은 HBM의 기본 구조부터 TSV, TC 본딩, MR-MUF 등 반도체를 수직으로 연결하는 핵심 기술까지 살펴보겠습니다.</p>
+
+<img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-hbm-08.png" alt="HBM 수직 적층 구조" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
+<p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">HBM 수직 적층 구조 (개념 이미지)</p>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">① HBM이란 무엇일까? DRAM을 쌓는 이유</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">HBM은 High Bandwidth Memory의 약자로, <strong>여러 개의 DRAM 칩을 수직으로 쌓아 높은 데이터 전송 대역폭을 구현한 메모리반도체</strong>입니다. 대역폭은 일정 시간 동안 얼마나 많은 데이터를 전송할 수 있는지를 나타냅니다. 쉽게 말하면 데이터를 이동시키는 도로의 폭과 같습니다.</p>
+
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;margin:24px 0;">
+<div style="flex:1;min-width:200px;background:#f5f7fa;border:2px solid #888;border-radius:10px;padding:16px;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#333;">🔬 미세공정 (기존 방식)</p>
+<p style="font-size:14px;line-height:1.9;color:#555;margin:0;">트랜지스터를 더 작게 만들고 하나의 칩에 더 많은 회로를 집적<br /><strong>→ 옆으로 퍼뜨리는 방향</strong></p>
+</div>
+<div style="flex:1;min-width:200px;background:#f0f6ff;border:2px solid #1a73e8;border-radius:10px;padding:16px;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#1a73e8;">🧱 수직 적층 (HBM·첨단 패키징)</p>
+<p style="font-size:14px;line-height:1.9;color:#555;margin:0;">칩을 위로 쌓고 수직으로 연결해 대역폭을 확보<br /><strong>→ 위로 쌓는 방향</strong></p>
+</div>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">일반적인 DDR 메모리는 시스템 기판에 배치된 메모리 모듈 등을 통해 데이터를 주고받습니다. 반면 HBM은 여러 DRAM 칩을 수직으로 적층하고, 매우 넓은 데이터 인터페이스를 통해 GPU와 데이터를 주고받습니다. 여기서 중요한 것은 단순히 DRAM을 많이 쌓는 것이 아닙니다. <strong style="color:#1a73e8;">넓은 데이터 통로와 짧은 연결 거리를 확보해 높은 대역폭과 전력 효율을 구현하는 것이 HBM의 핵심</strong>입니다.</p>
+
+<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.8;margin:24px 0;">
+<thead><tr style="background:#1f2d4d;color:#fff;">
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">구분</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">DDR 메모리</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">HBM</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">배치 구조</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">메모리 모듈을 기판에 평면 배치</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">DRAM 칩을 수직으로 적층</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">GPU와의 거리</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">상대적으로 먼 거리</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">GPU 바로 옆에 배치</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">데이터 통로</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">좁은 인터페이스</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">매우 넓은 데이터 인터페이스</td></tr>
+</tbody>
+</table>
+
+<div style="background:#f0f6ff;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;">⚡ HBM3E의 대역폭</p>
+<p style="font-size:15.5px;line-height:2;margin:0;">제품에 따라 하나의 메모리 스택에서 <strong>초당 1TB 이상</strong>의 데이터를 전송할 수 있습니다. 마이크론의 HBM3E 제품은 스택당 <strong>1.2TB/s 이상</strong>의 대역폭을 제공하는 사양을 갖추고 있습니다.</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">HBM은 세대별로 <strong>HBM2 → HBM2E → HBM3 → HBM3E → HBM4</strong>로 발전해 왔습니다. 적층 수 역시 중요한 개념입니다. 8단 적층을 뜻하는 <strong>8-Hi</strong>, 12단 적층을 뜻하는 <strong>12-Hi</strong>처럼 여러 개의 DRAM 다이를 쌓아 하나의 HBM 스택을 구성합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">대표적인 HBM 제조사는 SK하이닉스, 삼성전자, 마이크론입니다. 세 기업 모두 DRAM 제조 기술을 기반으로 HBM 제품을 개발하고 공급합니다. 하지만 HBM은 기존 범용 DRAM과 달리 적층과 접합, 열 관리 등 첨단 패키징 기술이 제품의 경쟁력에 큰 영향을 미칩니다.</p>
+
+<p style="margin:8px 0 24px;">
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">SK하이닉스</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">삼성전자</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">마이크론</span>
+<span style="display:inline-block;background:#fff;border:2px solid #1f2d4d;color:#1f2d4d;font-size:13px;font-weight:700;padding:5px 14px;border-radius:999px;margin:4px;">엔비디아</span>
+<span style="display:inline-block;background:#fff;border:2px solid #1f2d4d;color:#1f2d4d;font-size:13px;font-weight:700;padding:5px 14px;border-radius:999px;margin:4px;">AMD</span>
+</p>
+
+<div style="height:28px;"></div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">② TSV, 반도체 칩을 수직으로 관통하는 기술</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">TSV(Through Silicon Via)는 <strong>반도체 칩을 수직으로 관통하는 전기적 연결 통로</strong>입니다. 쉽게 말하면 칩에 미세한 구멍을 뚫고 그 안에 구리를 채워 위아래 칩을 전기적으로 연결하는 기술입니다.</p>
+
+<div style="background:#1f2d4d;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#fff;">🔧 TSV 형성 과정</p>
+<p style="font-size:15.5px;line-height:2.1;margin:0;color:#e8ecf4;">
+<strong style="color:#ffd166;">1단계 · 식각</strong> — 식각 공정으로 실리콘에 미세한 구멍 형성<br />
+<strong style="color:#ffd166;">2단계 · 증착</strong> — 절연막과 배리어막 증착<br />
+<strong style="color:#ffd166;">3단계 · 구리 도금</strong> — 구리로 구멍을 채움<br />
+<strong style="color:#ffd166;">4단계 · 평탄화 및 검사</strong> — CMP로 표면을 평탄화하고 검사
+</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">관련 장비 기업으로는 <strong>램리서치(식각)</strong>, <strong>어플라이드머티어리얼즈(증착)</strong>, <strong>도쿄일렉트론(식각/증착)</strong>, <strong>KLA(검사)</strong> 등이 있습니다. 국내에서는 <strong>원익IPS</strong>, <strong>주성엔지니어링</strong> 등이 관련 장비를 공급합니다.</p>
+
+<img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-tsv-08.png" alt="TSV 수직 연결 구조" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
+<p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">TSV 수직 연결 구조 (개념 이미지)</p>
+
+<div style="height:28px;"></div>
+</div></body></html>

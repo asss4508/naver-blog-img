@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY8-chunk3</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk">
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑤ CoWoS와 2.5D/3D 패키징, 서로 다른 칩을 하나로</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">CoWoS(Chip on Wafer on Substrate)는 <strong>TSMC의 대표적인 첨단 패키징 기술</strong>로, GPU와 HBM 등 서로 다른 반도체를 하나의 패키지로 통합합니다. CoWoS는 실리콘 인터포저 위에 로직 칩과 HBM을 배치하는 2.5D 패키징 방식입니다.</p>
+
+<div style="background:#1f2d4d;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#fff;">📦 CoWoS 구조</p>
+<p style="font-size:15.5px;line-height:2.1;margin:0;color:#e8ecf4;">
+<strong style="color:#ffd166;">GPU + HBM</strong> → <strong style="color:#ffd166;">실리콘 인터포저</strong> 위에 배치 → <strong style="color:#ffd166;">서브스트레이트</strong>에 실장<br />
+<span style="font-size:14px;color:#aeb9cf;">서로 다른 칩을 하나의 고성능 시스템으로 연결하는 기술입니다.</span>
+</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">CoWoS에는 여러 버전이 있습니다. <strong>CoWoS-S</strong>는 실리콘 인터포저를 사용하고, <strong>CoWoS-R</strong>은 유기 인터포저를 사용하며, <strong>CoWoS-L</strong>은 LSI 인터포저를 사용합니다. <strong>SoIC</strong>(System on Integrated Chips)은 TSMC의 고밀도 3D 칩 적층 기술입니다.</p>
+
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;margin:24px 0;">
+<div style="flex:1;min-width:200px;background:#f0f6ff;border:2px solid #1a73e8;border-radius:10px;padding:16px;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#1a73e8;">2.5D 패키징</p>
+<p style="font-size:14px;line-height:1.9;color:#555;margin:0;">인터포저 위에 칩들을 나란히 배치<br />CoWoS가 대표적</p>
+</div>
+<div style="flex:1;min-width:200px;background:#fff7ed;border:2px solid #d4a94e;border-radius:10px;padding:16px;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#b8860b;">3D 패키징</p>
+<p style="font-size:14px;line-height:1.9;color:#555;margin:0;">칩을 수직으로 적층해 직접 연결<br />SoIC, HBM 적층이 대표적</p>
+</div>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">인텔도 <strong>EMIB</strong>(Embedded Multi-die Interconnect Bridge)와 <strong>Foveros</strong>라는 첨단 패키징 기술을 보유하고 있습니다. 삼성전자는 <strong>I-Cube</strong>와 <strong>X-Cube</strong>라는 첨단 패키징 기술을 발전시키고 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">관련 기업으로는 <strong>TSMC</strong>(파운드리 및 패키징), <strong>인텔</strong>, <strong>ASE</strong>와 <strong>앰코테크놀로지</strong>(OSAT) 등이 있습니다.</p>
+
+<div style="height:28px;"></div>
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑥ HBM 생태계의 주요 기업들</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">HBM 산업은 메모리 제조사뿐 아니라 다양한 기업들이 참여하는 생태계입니다.</p>
+
+<div style="background:#f0f6ff;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;">🔗 HBM 산업 밸류체인</p>
+<p style="font-size:15.5px;line-height:2;margin:0;"><strong>GPU 설계</strong> → <strong>메모리 제조</strong> → <strong>본딩 장비</strong> → <strong>전공정 장비·소재</strong> → <strong>첨단 패키징</strong> → <strong>AI 가속기</strong><br /><span style="font-size:14px;color:#666;">HBM은 메모리부터 패키징까지 모든 단계가 맞물려 돌아가는 산업입니다.</span></p>
+</div>
+
+<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.8;margin:24px 0;">
+<thead><tr style="background:#1f2d4d;color:#fff;">
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">역할</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">주요 기업</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">메모리 제조사</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">SK하이닉스, 삼성전자, 마이크론</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">GPU 설계</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">엔비디아, AMD</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">파운드리 및 패키징</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">TSMC</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">본딩 장비</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">한미반도체, BESI, ASMPT</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">전공정 장비</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">어플라이드머티어리얼즈, 램리서치, 도쿄일렉트론</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">검사 장비</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">KLA, 파크시스템스, 인텍플러스</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">소재</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">솔브레인, 동진쎄미켐, 원익QnC, 하나머티리얼즈</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">기판</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">삼성전기, 대덕전자, 심텍</td></tr>
+</tbody>
+</table>
+
+<p style="margin:8px 0 24px;">
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">SK하이닉스</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">삼성전자</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">마이크론</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">엔비디아</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">TSMC</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">한미반도체</span>
+<span style="display:inline-block;background:#1f2d4d;color:#fff;font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin:4px;">BESI</span>
+</p>
+
+<div style="height:28px;"></div>
+</div></body></html>

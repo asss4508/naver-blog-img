@@ -1,0 +1,89 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAY8-chunk4</title></head><body style="margin:0;padding:16px;background:#ffffff;">
+<script>
+async function copyChunk(){
+  var msg=document.getElementById('msg');
+  try{
+    var el=document.getElementById('chunk');
+    var htmlBlob=new Blob([el.innerHTML],{type:'text/html'});
+    var textBlob=new Blob([el.innerText],{type:'text/plain'});
+    await navigator.clipboard.write([new ClipboardItem({'text/html':htmlBlob,'text/plain':textBlob})]);
+    msg.textContent='복사됨 OK '+new Date().toLocaleTimeString();
+    msg.style.color='green';
+  }catch(e){ msg.textContent='복사 실패: '+e; msg.style.color='red'; }
+}
+</script><div style="position:sticky;top:0;background:#fffbe6;border:2px solid #e6a800;border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;"><button onclick="copyChunk()" style="font-size:18px;padding:10px 24px;cursor:pointer;">📋 이 청크 복사하기 (서식 포함)</button> <span id="msg" style="font-size:14px;margin-left:8px;"></span></div><div id="chunk">
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑦ 한눈에 보는 오늘의 핵심 정리</h2>
+
+<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.8;margin:24px 0;">
+<thead><tr style="background:#1f2d4d;color:#fff;">
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">핵심 기술</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">주요 역할</th>
+<th style="padding:12px 10px;border:1px solid #d9d9d9;">관련 기업</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">HBM</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">DRAM 수직 적층을 통한 고대역폭 구현</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">SK하이닉스, 삼성전자, 마이크론</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">TSV</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">반도체 칩을 수직으로 관통하는 전기적 연결 통로</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">SK하이닉스, 삼성전자, 마이크론</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">TC 본딩</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">열과 압력을 이용한 칩 접합</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">한미반도체, BESI, ASMPT</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">MR-MUF</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">적층 칩의 일괄 접합 및 몰딩</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">SK하이닉스</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">TC-NCF</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">비전도성 필름과 열압착 접합 기술</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">삼성전자</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">하이브리드 본딩</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">금속 전극과 절연막의 직접 접합</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">BESI, 어플라이드머티어리얼즈</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">CoWoS</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">GPU와 HBM 등을 하나의 패키지로 통합</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">TSMC</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">SoIC</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">고밀도 3D 칩 적층</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">TSMC</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">EMIB 및 Foveros</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">고밀도 칩 연결 및 3D 적층</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">인텔</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">첨단 패키징 검사</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">접합 상태와 미세 결함 확인</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">KLA, 파크시스템스, 인텍플러스</td></tr>
+</tbody>
+</table>
+
+<div style="background:#f0f6ff;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;">📊 HBM 산업의 네 가지 지표</p>
+<p style="font-size:15.5px;line-height:2;margin:0;"><strong>첫째,</strong> HBM 생산능력(CAPA)입니다.<br /><strong>둘째,</strong> 적층 수와 수율입니다.<br /><strong>셋째,</strong> 데이터 대역폭과 전력 효율입니다.<br /><strong>넷째,</strong> 첨단 패키징 생산능력입니다.</p>
+</div>
+
+<div style="background:#1f2d4d;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#fff;">🗺️ HBM과 첨단 패키징 산업 종합 지도</p>
+<p style="font-size:15.5px;line-height:2.1;margin:0;color:#e8ecf4;">
+<strong style="color:#ffd166;">DRAM 제조</strong> → <strong style="color:#ffd166;">TSV 및 적층</strong> → <strong style="color:#ffd166;">본딩</strong> → <strong style="color:#ffd166;">GPU와 HBM 통합</strong> → <strong style="color:#ffd166;">AI 가속기</strong>
+</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">오늘 꼭 기억해야 할 핵심은 네 가지입니다. <strong>첫째,</strong> HBM은 여러 개의 DRAM을 수직으로 쌓아 높은 데이터 대역폭을 구현하는 메모리반도체입니다. <strong>둘째,</strong> TSV와 TC 본딩, MR-MUF 등은 HBM 적층을 구현하는 핵심 기술이며, 하이브리드 본딩은 더욱 미세한 연결을 위한 중요한 기술입니다. <strong>셋째,</strong> CoWoS와 2.5D 및 3D 패키징은 GPU와 HBM 등 서로 다른 반도체를 하나의 고성능 시스템으로 연결하는 기술입니다. <strong>넷째,</strong> HBM 산업은 메모리 제조사뿐 아니라 본딩장비, 검사장비, 소재, 첨단 패키징 기업들이 함께 참여하는 생태계입니다.</p>
+
+<div style="height:28px;"></div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">마무리: 반도체 경쟁은 이제 연결 기술로 확대되고 있다</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">오늘은 HBM과 첨단 패키징 기술을 살펴봤습니다. SK하이닉스, 삼성전자, 마이크론은 HBM을 제조하고, 한미반도체와 BESI 등은 반도체를 정밀하게 접합하는 장비 기술을 공급합니다. TSMC는 CoWoS를 통해 GPU와 HBM을 하나의 고성능 패키지로 통합하며, 인텔과 삼성전자 역시 자체 첨단 패키징 기술을 발전시키고 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">여기서 중요한 사실이 있습니다. <strong style="color:#1a73e8;">반도체의 성능을 높이는 방법이 더 이상 트랜지스터를 작게 만드는 것에만 머물러 있지 않다</strong>는 점입니다. 여러 개의 반도체를 효율적으로 연결하고, 데이터를 빠르게 주고받는 기술이 새로운 경쟁력이 되고 있습니다.</p>
+
+<div style="height:28px;"></div>
+
+<div style="background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;">📚 반도체 산업 스터디 (10개 챕터)</p>
+<p style="font-size:15px;line-height:2;margin:0;">
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;">DAY 1. 반도체는 누가 만들고, 누가 돈을 벌까?</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;">DAY 2. 삼성전자와 엔비디아는 무엇이 다를까?</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;">DAY 3. 팹리스, 파운드리, IDM</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;">DAY 4. 8대 공정 완전 정복</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;">DAY 5. 반도체 장비의 세계</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;">DAY 6. 소재 산업의 비밀</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#1a73e8;">DAY 7. 패키징과 테스트</a><br />
+<strong>DAY 8. HBM과 첨단 패키징 ← 오늘</strong><br />
+DAY 9. AI 반도체 전쟁<br />
+DAY 10. 반도체 업황 읽는 법
+</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">다음 편에서는 <strong style="color:#1a73e8;">엔비디아 GPU 다음의 AI 반도체 전쟁</strong>을 살펴보겠습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">GPU, NPU, TPU, ASIC 등 다양한 AI 반도체와 빅테크 기업들의 자체 칩 개발 경쟁을 알아봅니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>DAY 9. AI 반도체 전쟁</strong> — 다음 시간에 함께 알아보겠습니다!</p>
+
+<div style="height:28px;"></div>
+<div style="height:28px;"></div>
+
+<p style="font-size:14px;color:#999;line-height:1.9;margin:0;">이 글은 반도체 산업에 대한 이해를 돕기 위한 교육 목적의 콘텐츠이며, 특정 종목의 매수 또는 매도를 추천하지 않습니다.</p>
+
+</div>
+</div></body></html>
