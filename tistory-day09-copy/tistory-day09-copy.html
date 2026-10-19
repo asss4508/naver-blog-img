@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><title>DAY9 복사 헬퍼</title></head>
+<body style="font-family:sans-serif;padding:20px;">
+<h1>반도체 DAY 9 청크 복사 헬퍼</h1>
+<p>각 버튼을 누르면 해당 청크의 서식 있는 HTML이 클립보드에 복사됩니다. 버튼 클릭 후 아래 상태 표시줄에 '복사 완료'가 뜨는지 확인하세요.</p>
+<div id="status" style="font-size:20px;font-weight:800;padding:14px;background:#fff3cd;border-radius:8px;margin:16px 0;">대기 중</div>
+
+
+<button onclick="copyChunk('A')" style="font-size:22px;font-weight:800;padding:18px 36px;margin:12px;background:#1a73e8;color:#fff;border:none;border-radius:10px;cursor:pointer;">CHUNK A 클립보드에 복사</button>
+
+
+<button onclick="copyChunk('B')" style="font-size:22px;font-weight:800;padding:18px 36px;margin:12px;background:#1a73e8;color:#fff;border:none;border-radius:10px;cursor:pointer;">CHUNK B 클립보드에 복사</button>
+
+
+<button onclick="copyChunk('C')" style="font-size:22px;font-weight:800;padding:18px 36px;margin:12px;background:#1a73e8;color:#fff;border:none;border-radius:10px;cursor:pointer;">CHUNK C 클립보드에 복사</button>
+
+
+<hr style="margin:30px 0;">
+<h2>CHUNK A 미리보기</h2>
+<div id="chunk-A" style="border:3px dashed #1a73e8;padding:10px;max-width:800px;"><div style="max-width:760px;margin:0 auto;font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;color:#333;">
+
+<p style="font-size:15px;color:#888;margin:0 0 8px;">반도체 산업 스터디 · 10개 챕터 DAY 9</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">AI 반도체라고 하면 가장 먼저 어떤 기업이 떠오르시나요? 아마 엔비디아를 떠올리시는 분들이 많을 겁니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">그런데 AI 반도체 산업은 엔비디아만 있는 것이 아닙니다. <strong style="color:#1a73e8;">구글의 TPU, 아마존의 Trainium, 마이크로소프트의 Maia, 메타의 MTIA, AMD의 GPU, 브로드컴과 마벨테크놀로지의 커스텀 칩</strong>까지 다양한 기업들이 각자의 영역에서 경쟁하고 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">오늘은 AI 반도체의 종류부터 엔비디아의 CUDA 생태계, 글로벌 경쟁 구도, 그리고 데이터센터의 숨은 핵심인 네트워크 반도체와 광통신까지 하나씩 살펴보겠습니다.</p>
+
+<div style="background:#f0f6ff;border:2px solid #1a73e8;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#1a73e8;">🗺️ AI 반도체 시장 참여 기업 지도</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<div style="flex:1;min-width:140px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;text-align:center;"><p style="font-size:14px;font-weight:800;margin:0 0 6px;">AI GPU</p><p style="font-size:13px;color:#555;line-height:1.8;margin:0;">엔비디아, AMD</p></div>
+<div style="flex:1;min-width:140px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;text-align:center;"><p style="font-size:14px;font-weight:800;margin:0 0 6px;">자체 AI 가속기</p><p style="font-size:13px;color:#555;line-height:1.8;margin:0;">구글 TPU<br />AWS Trainium·Inferentia<br />MS Maia, 메타 MTIA</p></div>
+<div style="flex:1;min-width:140px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;text-align:center;"><p style="font-size:14px;font-weight:800;margin:0 0 6px;">커스텀 ASIC</p><p style="font-size:13px;color:#555;line-height:1.8;margin:0;">브로드컴<br />마벨테크놀로지</p></div>
+<div style="flex:1;min-width:140px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;text-align:center;"><p style="font-size:14px;font-weight:800;margin:0 0 6px;">NPU·엣지</p><p style="font-size:13px;color:#555;line-height:1.8;margin:0;">애플, 퀄컴<br />리벨리온, 퓨리오사AI</p></div>
+</div>
+</div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">① AI 반도체의 종류, GPU만 있는 것이 아니다</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">AI 연산에는 여러 종류의 반도체가 사용됩니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>CPU</strong>는 범용 연산의 두뇌로, <strong>인텔과 AMD</strong>가 대표적입니다. ARM의 설계 기술을 활용한 <strong>애플과 퀄컴</strong>의 칩도 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>GPU</strong>는 병렬 연산에 특화된 반도체로, <strong>엔비디아</strong>가 시장을 주도하고 <strong>AMD</strong>가 경쟁합니다. 원래 그래픽 처리용이었지만 AI 학습에 최적화되어 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>NPU(Neural Processing Unit)</strong>는 신경망 연산에 특화된 프로세서로, 애플의 Neural Engine과 퀄컴의 NPU가 스마트폰에 탑재됩니다. 국내 스타트업인 <strong>리벨리온과 퓨리오사AI(비상장)</strong>도 NPU를 개발합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>TPU(Tensor Processing Unit)</strong>는 구글이 자체 개발한 AI 가속기로, 구글 클라우드에서 활용됩니다. 최신 버전은 아이언우드(Ironwood)입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>ASIC(Application Specific Integrated Circuit)</strong>은 특정 용도에 맞게 설계된 맞춤형 반도체로, 브로드컴과 마벨이 빅테크의 주문을 받아 설계합니다.</p>
+
+<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.8;margin:24px 0;">
+
+<tbody><tr style="background:#1f2d4d;color:#fff;">
+<td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">구분</td>
+<td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">특징</td>
+<td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">대표 기업</td>
+</tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">CPU</td><td style="padding:12px 10px;border:1px solid #d9d9d9;">범용 연산의 두뇌</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">인텔, AMD, 애플, 퀄컴</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">GPU</td><td style="padding:12px 10px;border:1px solid #d9d9d9;">병렬 연산 특화, AI 학습에 최적화</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">엔비디아, AMD</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">NPU</td><td style="padding:12px 10px;border:1px solid #d9d9d9;">신경망 연산 특화, 스마트폰·엣지 탑재</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">애플, 퀄컴, 리벨리온, 퓨리오사AI</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">TPU</td><td style="padding:12px 10px;border:1px solid #d9d9d9;">구글 자체 AI 가속기, 클라우드 활용</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">구글</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">ASIC</td><td style="padding:12px 10px;border:1px solid #d9d9d9;">특정 용도 맞춤형 설계</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">브로드컴, 마벨테크놀로지</td></tr>
+</tbody>
+</table>
+
+<img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-aigpu-09.png" alt="고성능 AI 가속기 칩" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
+<p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">고성능 AI 가속기 칩 (이미지)</p>
+
+<p style="font-size:15px;margin:0 0 12px;">
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">엔비디아</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">AMD</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">인텔</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">구글</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">애플</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">퀄컴</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">브로드컴</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">마벨</span>
+</p>
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">② 엔비디아의 진짜 경쟁력, CUDA 생태계</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">엔비디아의 경쟁력은 GPU 하드웨어만이 아닙니다. <strong style="color:#1a73e8;">CUDA라는 소프트웨어 플랫폼</strong>이 핵심입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">CUDA는 개발자가 GPU를 활용해 병렬 연산을 프로그래밍할 수 있게 하는 플랫폼입니다. cuBLAS, cuDNN 같은 수학 라이브러리와 TensorRT(추론 최적화), NCCL(다중 GPU 통신) 등이 포함됩니다. 파이토치(PyTorch) 같은 AI 프레임워크도 CUDA 기반으로 동작합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">하드웨어 연결 기술도 중요합니다. <strong>NVLink</strong>는 GPU 간 고속 연결이고, <strong>NVSwitch</strong>는 여러 GPU를 연결하는 스위치입니다. H100, H200, B200, GB200 등 엔비디아의 AI GPU 라인업은 이러한 생태계 위에 구축됩니다.</p>
+
+<div style="background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;">🧱 CUDA 소프트웨어 스택</p>
+<div style="display:flex;flex-direction:column;gap:6px;">
+<div style="background:#1f2d4d;color:#fff;border-radius:8px;padding:10px;text-align:center;font-size:14px;font-weight:700;">AI 프레임워크 — 파이토치(PyTorch) 등, CUDA 기반으로 동작</div>
+<div style="text-align:center;color:#888;font-size:14px;">▼</div>
+<div style="background:#2f4b7c;color:#fff;border-radius:8px;padding:10px;text-align:center;font-size:14px;font-weight:700;">라이브러리 — cuBLAS, cuDNN, TensorRT(추론 최적화), NCCL(다중 GPU 통신)</div>
+<div style="text-align:center;color:#888;font-size:14px;">▼</div>
+<div style="background:#4a6fa5;color:#fff;border-radius:8px;padding:10px;text-align:center;font-size:14px;font-weight:700;">플랫폼 — CUDA (병렬 연산 프로그래밍)</div>
+<div style="text-align:center;color:#888;font-size:14px;">▼</div>
+<div style="background:#eaf1fd;border:1px solid #1a73e8;color:#1a73e8;border-radius:8px;padding:10px;text-align:center;font-size:14px;font-weight:700;">하드웨어 연결 — NVLink, NVSwitch</div>
+</div>
+</div>
+
+<div style="background:#fff7ed;border:2px solid #d4a94e;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#b8860b;">🚀 엔비디아 AI GPU 세대별 발전</p>
+<p style="font-size:15.5px;line-height:2;margin:0;text-align:center;"><strong>H100</strong> <span style="color:#b8860b;">→</span> <strong>H200</strong> <span style="color:#b8860b;">→</span> <strong>B200</strong> <span style="color:#b8860b;">→</span> <strong>GB200</strong><br /><span style="font-size:13.5px;color:#777;">세대를 거듭할수록 연산 성능과 메모리 대역폭이 향상되며, CUDA 생태계 위에 구축됩니다.</span></p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">경쟁사도 대응하고 있습니다. AMD는 <strong>ROCm</strong>이라는 개방형 플랫폼을, 인텔은 <strong>oneAPI</strong>를 제공합니다. 하지만 CUDA의 개발자 생태계 규모는 여전히 압도적입니다.</p>
+
+<img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-datacenter-09.png" alt="AI 데이터센터와 GPU 서버 클러스터" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
+<p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">AI 데이터센터와 GPU 서버 클러스터 (이미지)</p>
+
+<p style="font-size:15px;margin:0 0 12px;">
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">엔비디아</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">AMD</span>
+<span style="display:inline-block;background:#f0f6ff;border:1px solid #1a73e8;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:700;color:#1a73e8;margin:4px;">인텔</span>
+</p>
+</div>
+
+
+<hr style="margin:30px 0;">
+<h2>CHUNK B 미리보기</h2>
+<div id="chunk-B" style="border:3px dashed #1a73e8;padding:10px;max-width:800px;"><h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">③ 글로벌 AI 반도체 경쟁 구도</h2>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">① 엔비디아와 AMD의 GPU 경쟁</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">엔비디아는 AI GPU 시장을 주도하고, AMD는 MI 시리즈로 추격합니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">② 구글의 TPU (알파벳)</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">구글은 TPU를 자체 개발해 구글 클라우드에서 활용합니다. 최신 TPU인 Trillium과 Ironwood는 AI 학습과 추론에 사용됩니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">③ AWS의 자체 칩 (아마존)</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">아마존웹서비스(AWS)는 Trainium(학습용)과 Inferentia(추론용)를 개발했습니다. Neuron SDK로 개발자를 지원합니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">④ 마이크로소프트의 Maia</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">MS는 Maia 200을 TSMC 3nm 공정으로 제조하고 HBM3E를 탑재했습니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">⑤ 메타의 MTIA</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">메타는 MTIA(Meta Training and Inference Accelerator)를 개발해 자체 데이터센터에 활용합니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">⑥ 브로드컴과 마벨의 커스텀 ASIC</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">브로드컴과 마벨테크놀로지는 빅테크의 주문을 받아 맞춤형 AI 가속기를 설계합니다.</p>
+<div style="height:28px;"></div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">④ AI 학습과 추론, 같은 AI라도 필요한 반도체가 다르다</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>AI 학습(Training)</strong>은 모델을 만드는 과정으로, 대규모 GPU 클러스터가 필요합니다. <strong>AI 추론(Inference)</strong>은 학습된 모델을 실제 서비스에 활용하는 것으로, 전력 효율이 중요합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">구글은 TPU, 아마존은 Trainium과 Inferentia, 마이크로소프트는 Maia, 메타는 MTIA 등 자체 AI 가속기를 개발하고 있습니다. AI 학습과 추론은 서로 다른 기술적 요구를 가지며, GPU와 맞춤형 AI 가속기는 각자의 장점을 바탕으로 함께 활용될 수 있습니다.</p>
+
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;margin:24px 0;">
+<div style="flex:1;min-width:150px;background:#f0f6ff;border:2px solid #1a73e8;border-radius:10px;padding:16px;text-align:center;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#1a73e8;">AI 학습 (Training)</p>
+<p style="font-size:14px;line-height:1.8;color:#555;margin:0;">모델을 만드는 과정<br />대규모 GPU 클러스터 필요</p>
+</div>
+<div style="flex:1;min-width:150px;background:#fff7ed;border:2px solid #d4a94e;border-radius:10px;padding:16px;text-align:center;">
+<p style="font-size:16px;font-weight:800;margin:0 0 8px;color:#b8860b;">AI 추론 (Inference)</p>
+<p style="font-size:14px;line-height:1.8;color:#555;margin:0;">학습된 모델을 서비스에 활용<br />전력 효율이 중요</p>
+</div>
+</div>
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑤ AI 데이터센터의 숨은 핵심, 네트워크 반도체와 광통신</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">AI 반도체라고 하면 대부분 GPU와 HBM을 떠올립니다. 하지만 GPU가 아무리 뛰어나더라도 데이터센터 전체의 성능을 결정하는 것은 GPU만이 아닙니다. <strong style="color:#1a73e8;">GPU 사이에서 데이터를 주고받는 속도가 느리다면</strong> 연산을 완료한 GPU가 다른 GPU의 결과를 기다리는 상황이 발생합니다.</p>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">① 네트워크 반도체, GPU 사이에 데이터 고속도로를 만든다</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">대표적으로 엔비디아의 NVLink, 인피니밴드(InfiniBand), 이더넷(Ethernet) 등이 있습니다. NVLink는 주로 GPU 사이의 고속 연결에 사용됩니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">데이터센터 네트워크는 세 단계로 구성됩니다. <strong>Scale-Up</strong>은 서버 내 GPU 연결, <strong>Scale-Out</strong>은 랙 내 서버 연결, <strong>Scale-Across</strong>는 데이터센터 전체 연결입니다.</p>
+
+<div style="background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;">🌐 AI 데이터센터 네트워크 구조</p>
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;">
+<div style="flex:1;min-width:130px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;text-align:center;"><p style="font-size:14px;font-weight:800;margin:0 0 6px;color:#1a73e8;">Scale-Up</p><p style="font-size:13px;color:#555;line-height:1.8;margin:0;">서버 내 GPU 연결<br />NVLink, NVSwitch</p></div>
+<div style="flex:1;min-width:130px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;text-align:center;"><p style="font-size:14px;font-weight:800;margin:0 0 6px;color:#1a73e8;">Scale-Out</p><p style="font-size:13px;color:#555;line-height:1.8;margin:0;">랙 내 서버 연결<br />인피니밴드, 이더넷</p></div>
+<div style="flex:1;min-width:130px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;text-align:center;"><p style="font-size:14px;font-weight:800;margin:0 0 6px;color:#1a73e8;">Scale-Across</p><p style="font-size:13px;color:#555;line-height:1.8;margin:0;">데이터센터 전체 연결<br />광통신 기반</p></div>
+</div>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">엔비디아는 NVLink와 NVSwitch, Quantum 인피니밴드, Spectrum-X 이더넷 등 다양한 연결 기술을 공급합니다. 네트워크 반도체 분야의 대표적인 기업은 <strong>브로드컴(Broadcom)</strong>입니다. 대표적인 제품군이 Tomahawk와 Jericho이며, 특히 Tomahawk 6는 단일 스위치 칩 기준 102.4Tbps의 처리 용량을 지원합니다. 또 다른 주요 기업은 <strong>마벨테크놀로지(Marvell Technology)</strong>로, 데이터센터용 네트워크 반도체, 고속 SerDes, 광통신 DSP, 커스텀 ASIC 분야에서 사업을 영위합니다. 대표적인 네트워크 장비 기업으로는 <strong>아리스타네트웍스(Arista Networks)와 시스코시스템즈(Cisco Systems)</strong>가 있습니다.</p>
+
+<img src="https://raw.githubusercontent.com/asss4508/naver-blog-img/main/semi-20261011/semi-datacenter-09.png" alt="데이터센터 네트워크 인프라" style="width:100%;max-width:760px;display:block;margin:24px auto;border-radius:8px;" />
+<p style="font-size:13px;color:#999;text-align:center;margin:0 0 24px;">데이터센터 네트워크 인프라 (이미지)</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">② 광통신, 데이터센터를 빛으로 연결한다</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">이때 중요한 기술이 <strong>광통신(Optical Communication)</strong>입니다. 대표적인 부품이 <strong>광트랜시버(Optical Transceiver)</strong>, 흔히 말하는 광모듈입니다. 데이터센터 네트워크가 고속화되면서 400G, 800G, 1.6T 등 고속 광통신 제품도 발전하고 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">주요 기업으로는 코히런트(Coherent), 루멘텀(Lumentum), 중국의 중지이노라이트(InnoLight), 이옵토링크(Eoptolink) 등이 있습니다. 룩스셰어정밀(Luxshare Precision)도 800G와 1.6T 광트랜시버, 고속 케이블을 공급합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">광통신 <strong>DSP(Digital Signal Processor)</strong>는 고속 광신호를 처리하는 반도체로, 마벨과 브로드컴이 공급합니다.</p>
+
+<div style="background:#f0f6ff;border:1px solid #1a73e8;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#1a73e8;">🔌 주요 광통신 제품과 기업</p>
+<table style="width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.8;">
+
+<tbody><tr style="background:#1f2d4d;color:#fff;">
+<td style="padding:10px 8px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">제품</td>
+<td style="padding:10px 8px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">속도</td>
+<td style="padding:10px 8px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">주요 공급 기업</td>
+</tr>
+<tr><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;font-weight:700;text-align:center;">광트랜시버</td><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;text-align:center;">800G</td><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;text-align:center;">룩스셰어정밀, 중지이노라이트</td></tr>
+<tr><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;font-weight:700;text-align:center;">광트랜시버</td><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;text-align:center;">1.6T</td><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;text-align:center;">코히런트, 룩스셰어정밀</td></tr>
+<tr><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;font-weight:700;text-align:center;">광통신 DSP</td><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;text-align:center;">고속 광신호 처리</td><td style="padding:10px 8px;border:1px solid #d9d9d9;background:#fff;text-align:center;">마벨, 브로드컴</td></tr>
+</tbody>
+</table>
+</div>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">③ CPO, 광통신 기술은 반도체 가까이로 이동한다</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>CPO(Co-Packaged Optics)</strong>는 광통신 부품을 반도체 패키지 가까이에 배치하는 기술입니다. 브로드컴은 CPO 기술을 적용한 Tomahawk 6-Davisson 스위치 제품을 공개했고, 엔비디아 역시 실리콘 포토닉스 기반 네트워크 기술을 확대하고 있습니다.</p>
+<div style="height:28px;"></div></div>
+
+
+<hr style="margin:30px 0;">
+<h2>CHUNK C 미리보기</h2>
+<div id="chunk-C" style="border:3px dashed #1a73e8;padding:10px;max-width:800px;"><h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑥ AI 반도체 산업, 어떤 지표를 살펴봐야 할까?</h2>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">① 빅테크의 데이터센터 설비투자(CAPEX)</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">빅테크의 CAPEX는 엔비디아와 AMD의 AI 가속기뿐 아니라 HBM, 네트워크 반도체, 광통신 장비 수요와도 연결됩니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">② GPU와 맞춤형 ASIC의 경쟁</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">엔비디아와 AMD는 다양한 고객이 활용할 수 있는 GPU를 공급합니다. 반면 구글, 아마존, MS, 메타는 자체 서비스에 특화된 ASIC을 개발합니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">③ HBM과 첨단 패키징 생산능력</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">SK하이닉스, 삼성전자, 마이크론의 HBM 공급능력과 TSMC 등 첨단 패키징 기업의 생산능력이 중요합니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">④ 네트워크와 광통신 속도의 변화</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">GPU가 늘어날수록 GPU 간 데이터 이동량도 증가합니다. 800G에서 1.6T로의 전환이 핵심 지표입니다.</p>
+<div style="height:28px;"></div>
+
+<p style="font-size:17px;font-weight:800;color:#111;margin:30px 0 12px;">⑤ 전력 효율과 데이터센터 운영비용</p>
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">AI 데이터센터에서는 GPU와 CPU뿐 아니라 메모리, 네트워크 스위치, 광통신 모듈, 냉각설비 등에서 전력이 소비됩니다. 전력당 처리량과 총소유비용(TCO)이 중요한 개념입니다.</p>
+<div style="height:28px;"></div>
+
+<div style="background:#f0f6ff;border:2px solid #1a73e8;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;color:#1a73e8;">🔗 AI 데이터센터 투자 확대에 따른 산업 연결 구조</p>
+<div style="display:flex;align-items:stretch;justify-content:center;gap:8px;flex-wrap:wrap;text-align:center;">
+<div style="flex:1;min-width:150px;background:#fff;border:2px solid #1a73e8;border-radius:8px;padding:12px;"><p style="font-size:14px;font-weight:800;margin:0;">빅테크 데이터센터 CAPEX</p></div>
+<div style="display:flex;align-items:center;color:#1a73e8;font-weight:800;font-size:18px;">→</div>
+<div style="flex:1;min-width:150px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;font-size:13px;line-height:1.8;"><strong>AI 가속기 수요</strong><br />엔비디아, AMD</div>
+<div style="flex:1;min-width:150px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;font-size:13px;line-height:1.8;"><strong>HBM 수요</strong><br />SK하이닉스, 삼성전자, 마이크론</div>
+<div style="flex:1;min-width:150px;background:#fff;border:1px solid #d9d9d9;border-radius:8px;padding:12px;font-size:13px;line-height:1.8;"><strong>네트워크·광통신 수요</strong><br />브로드컴, 마벨, 아리스타, 코히런트</div>
+</div>
+</div>
+
+<div style="background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;">📊 AI 반도체 산업의 핵심 관찰 지표</p>
+<p style="font-size:15px;line-height:2.2;margin:0;">
+<strong>①</strong> 빅테크 데이터센터 설비투자(CAPEX) 동향<br />
+<strong>②</strong> GPU vs 맞춤형 ASIC 비중 변화<br />
+<strong>③</strong> HBM·첨단 패키징 생산능력<br />
+<strong>④</strong> 네트워크 속도 전환 (800G → 1.6T)<br />
+<strong>⑤</strong> 전력당 처리량·총소유비용(TCO)
+</p>
+</div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">⑦ 한눈에 보는 오늘의 핵심 정리</h2>
+
+<table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.8;margin:24px 0;">
+
+<tbody><tr style="background:#1f2d4d;color:#fff;">
+<td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">산업 분야</td>
+<td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">대표 기업</td>
+<td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;font-weight:700;color:#fff;">주요 역할</td>
+</tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">AI GPU</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">엔비디아, AMD</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">AI 학습 및 추론 연산</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">CPU 및 IP</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">인텔, AMD, ARM</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">범용 연산 및 CPU 설계 기술</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">자체 AI 가속기</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">알파벳, 아마존, 마이크로소프트, 메타</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">자체 AI 서비스에 특화된 칩 개발</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">커스텀 ASIC</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">브로드컴, 마벨</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">고객 맞춤형 반도체 설계</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">HBM</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">SK하이닉스, 삼성전자, 마이크론</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">AI 가속기용 고대역폭 메모리</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">첨단 패키징</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">TSMC, 삼성전자, ASE, 앰코</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">칩 통합 및 고밀도 연결</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">패키징 장비</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">한미반도체, BESI</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">반도체 적층 및 접합 장비</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">네트워크 반도체</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">엔비디아, 브로드컴, 마벨</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">데이터센터 내부 고속 통신</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">네트워크 장비</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">아리스타네트웍스, 시스코</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">데이터센터 스위치</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">광통신 부품</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">코히런트, 루멘텀, 룩스셰어</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">광신호 송수신</td></tr>
+<tr><td style="padding:12px 10px;border:1px solid #d9d9d9;background:#f5f7fa;font-weight:700;text-align:center;">광통신 DSP</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">브로드컴, 마벨</td><td style="padding:12px 10px;border:1px solid #d9d9d9;text-align:center;">고속 광신호 처리</td></tr>
+</tbody>
+</table>
+<p style="font-size:14px;color:#999;margin:0 0 24px;">※ 위 표는 각 기업의 대표적인 사업 영역을 기준으로 분류한 것으로, 실제로는 복수 분야에 참여하는 기업도 있습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">오늘 꼭 기억해야 할 내용은 네 가지입니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>첫째,</strong> AI 반도체는 GPU뿐 아니라 CPU, NPU, TPU, ASIC 등 다양한 종류로 구성됩니다.<br /><strong>둘째,</strong> 엔비디아의 경쟁력은 GPU 하드웨어뿐 아니라 CUDA, 네트워크, 소프트웨어가 결합된 생태계에 있습니다.<br /><strong>셋째,</strong> 빅테크는 자체 AI 칩을 개발하며 엔비디아 의존도를 낮추려 합니다.<br /><strong>넷째,</strong> AI 데이터센터가 확대되면 GPU와 HBM뿐 아니라 네트워크 반도체, 광통신, 전력 및 냉각 기술도 중요해집니다.</p>
+
+<div style="height:28px;"></div>
+
+<div style="background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;">🔗 AI 반도체 산업 종합 밸류체인</p>
+<p style="font-size:15px;line-height:2.2;margin:0;text-align:center;"><strong>AI 가속기</strong>(GPU·NPU·TPU·ASIC) <span style="color:#1a73e8;">→</span> <strong>HBM</strong> <span style="color:#1a73e8;">→</span> <strong>첨단 패키징</strong> <span style="color:#1a73e8;">→</span> <strong>네트워크 반도체</strong> <span style="color:#1a73e8;">→</span> <strong>광통신</strong> <span style="color:#1a73e8;">→</span> <strong>전력·냉각</strong><br /><span style="font-size:13.5px;color:#777;">GPU 성능만큼 GPU 사이를 연결하는 속도와 전력이 데이터센터의 성능을 좌우합니다.</span></p>
+</div>
+
+<h2 style="font-size:19px;font-weight:800;color:#111;border-left:5px solid #1a73e8;padding:8px 0 8px 14px;margin:44px 0 20px;line-height:1.5;">마무리: AI 반도체 경쟁은 GPU를 넘어 데이터센터 전체로 확대되고 있다</h2>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">엔비디아와 AMD는 AI 연산에 필요한 GPU를 공급하고, 구글과 아마존, 마이크로소프트, 메타는 자체 AI 반도체를 개발하고 있습니다. 브로드컴과 마벨은 커스텀 ASIC과 네트워크 반도체, 고속 연결 기술을 공급하며 AI 데이터센터 생태계에서 중요한 역할을 담당합니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">이제 AI 반도체를 볼 때 한 가지 질문을 더해보세요.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>"이 칩은 누구의 데이터센터를, 어떤 연결 기술로 움직이고 있을까?"</strong></p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">이 질문 하나만으로도 AI 반도체 산업을 바라보는 시야가 훨씬 넓어질 것입니다.</p>
+
+<div style="height:28px;"></div>
+
+<div style="background:#f5f7fa;border:1px solid #d9d9d9;border-radius:10px;padding:20px;margin:24px 0;">
+<p style="font-size:16px;font-weight:800;margin:0 0 12px;">📚 앞으로의 챕터 (반도체 산업 스터디)</p>
+<p style="font-size:15px;line-height:2;margin:0;">
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 1. 반도체는 누가 만들고, 누가 돈을 벌까?</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 2. 삼성전자와 엔비디아는 무엇이 다를까?</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 3. 팹리스, 파운드리, IDM</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 4. 8대 공정 완전 정복</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 5. 반도체 장비의 세계</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 6. 소재 산업의 비밀</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 7. 패키징과 테스트</a><br />
+<a href="https://5g-money.tistory.com/" style="color:#555;text-decoration:none;">DAY 8. HBM과 첨단 패키징</a><br />
+<strong>DAY 9. AI 반도체 전쟁 ← 오늘</strong><br />
+DAY 10. 반도체 업황 읽는 법
+</p>
+</div>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">다음 편에서는 반도체 산업의 호황과 불황을 읽는 방법을 살펴보겠습니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;">DRAM과 NAND 가격, 메모리 재고, 가동률, 설비투자(CAPEX), 반도체 장비 수주, HBM 생산능력 등 핵심 산업 지표를 정리합니다. 또한 삼성전자, SK하이닉스, 마이크론, TSMC, ASML, 램리서치 등 주요 기업의 실적 발표에서 어떤 산업 정보를 확인할 수 있는지도 알아봅니다.</p>
+
+<p style="font-size:16.5px;line-height:2;margin:0 0 24px;"><strong>DAY 10. 반도체 산업의 호황과 불황은 어떻게 읽을까?</strong> — 시리즈 최종편에서 함께 알아보겠습니다!</p>
+
+<div style="height:28px;"></div>
+<div style="height:28px;"></div>
+
+<p style="font-size:14px;color:#999;line-height:1.9;margin:0;">이 글은 반도체 산업에 대한 이해를 돕기 위한 교육 목적의 콘텐츠이며, 특정 종목의 매수 또는 매도를 추천하지 않습니다.</p>
+
+</div></div>
+
+
+<script>
+async function copyChunk(k){
+  var el = document.getElementById('chunk-'+k);
+  var html = el.innerHTML;
+  var text = el.innerText;
+  try {
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        'text/html': new Blob([html], {type:'text/html'}),
+        'text/plain': new Blob([text], {type:'text/plain'})
+      })
+    ]);
+    document.getElementById('status').textContent = 'CHUNK '+k+' 복사 완료 ' + new Date().toLocaleTimeString('ko-KR');
+    document.getElementById('status').style.background = '#d4edda';
+  } catch(e){
+    document.getElementById('status').textContent = 'CHUNK '+k+' 복사 실패: ' + e;
+    document.getElementById('status').style.background = '#f8d7da';
+  }
+}
+</script>
+
+</body></html>
